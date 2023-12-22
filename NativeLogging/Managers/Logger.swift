@@ -6,44 +6,43 @@
 //
 
 import Foundation
+import os.log
 
 /// A class for logging messages with different log levels.
 class Logger {
-   
-    // Literal expressions
-    /// #file = the path to the file in which it appears
-    /// #line = the line number on which it appears
-    /// #function = the name of the declaration in which it appears
-    // Vai pegar todos esses valores ^ do lugar que essa função estiver sendo chamada
-    static func info(_ string: StaticString, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line){
-        let context = LogContext(file: file, function: function, line: line)
-        Logger.handleLog(level: .info, string: string.description, shouldLogContext: shouldShowContext, context: context)
+    
+    //TODO: figure out what is and change category
+    private static let log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "YourAppLogCategory")
+    
+    /// Logs an informational message.
+    /// - Parameters:
+    ///   - message: The message to be logged.
+    ///   - shouldShowContext: Indicates whether context information (file, function, line) should be included in the log.
+    ///   - file: The name of the file in which the log message originated.
+    ///   - function: The name of the function in which the log message originated.
+    ///   - line: The line number at which the log message originated.
+    static func info(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .info, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
     }
-   
-    static func warning(_ string: StaticString, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line){
-        let context = LogContext(file: file, function: function, line: line)
-        Logger.handleLog(level: .warning, string: string.description, shouldLogContext: shouldShowContext, context: context)
+    
+    static func warning(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .warning, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
     }
-   
-    static func error(_ string: StaticString, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line){
-        let context = LogContext(file: file, function: function, line: line)
-        Logger.handleLog(level: .error, string: string.description, shouldLogContext: shouldShowContext, context: context)
+    
+    static func error(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .error, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
     }
-   
-    // Handling log and formatting what is going to be printed
-    fileprivate static func handleLog(level: LogLevel, string: String, shouldLogContext: Bool, context: LogContext){
-       
-        let logComponents = ["[\(level.prefix)]", "\n", string]
-       
+    
+    fileprivate static func handleLog(level: LogLevel, message: String, shouldLogContext: Bool, file: String, function: String, line: Int) {
+        let context = LogContext(file: file, function: function, line: line)
+        let logComponents = ["[\(level.prefix)]", message]
+        
         var fullString = logComponents.joined(separator: " ")
         if shouldLogContext {
-            fullString += "\n \(context.description)"
+            fullString += " \(context.description)"
         }
-        // Change this bc it only works on development mode
-        #if DEBUG
-        print(fullString)
-        #endif
-       
+        
+        os_log("%{public}@", log: log, type: level.logType, fullString)
     }
-   
+    
 }
