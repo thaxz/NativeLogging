@@ -11,9 +11,10 @@
 		E96152E82B35FB7B00A17044 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152E72B35FB7B00A17044 /* ContentView.swift */; };
 		E96152EA2B35FB7C00A17044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E96152E92B35FB7C00A17044 /* Assets.xcassets */; };
 		E96152ED2B35FB7C00A17044 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E96152EC2B35FB7C00A17044 /* Preview Assets.xcassets */; };
-		E96152F72B35FD5A00A17044 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152F62B35FD5A00A17044 /* Log.swift */; };
+		E96152F72B35FD5A00A17044 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152F62B35FD5A00A17044 /* Logger.swift */; };
 		E96152F92B35FD7A00A17044 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152F82B35FD7A00A17044 /* Context.swift */; };
 		E96152FB2B35FD9500A17044 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152FA2B35FD9500A17044 /* LogLevel.swift */; };
+		E96152FF2B36042300A17044 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152FE2B36042300A17044 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,9 +23,10 @@
 		E96152E72B35FB7B00A17044 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E96152E92B35FB7C00A17044 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E96152EC2B35FB7C00A17044 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		E96152F62B35FD5A00A17044 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		E96152F62B35FD5A00A17044 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E96152F82B35FD7A00A17044 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		E96152FA2B35FD9500A17044 /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		E96152FE2B36042300A17044 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				E96152F32B35FC1100A17044 /* Views */,
 				E96152F42B35FC1C00A17044 /* Models */,
 				E96152F52B35FC2500A17044 /* Managers */,
+				E96152FD2B36041300A17044 /* Utilities */,
 				E96152E92B35FB7C00A17044 /* Assets.xcassets */,
 				E96152EB2B35FB7C00A17044 /* Preview Content */,
 			);
@@ -95,9 +98,25 @@
 		E96152F52B35FC2500A17044 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E96152F62B35FD5A00A17044 /* Log.swift */,
+				E96152F62B35FD5A00A17044 /* Logger.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		E96152FC2B36040800A17044 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E96152FE2B36042300A17044 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E96152FD2B36041300A17044 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E96152FC2B36040800A17044 /* Extensions */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,11 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E96152FF2B36042300A17044 /* String.swift in Sources */,
 				E96152E82B35FB7B00A17044 /* ContentView.swift in Sources */,
 				E96152F92B35FD7A00A17044 /* Context.swift in Sources */,
 				E96152E62B35FB7B00A17044 /* NativeLoggingApp.swift in Sources */,
 				E96152FB2B35FD9500A17044 /* LogLevel.swift in Sources */,
-				E96152F72B35FD5A00A17044 /* Log.swift in Sources */,
+				E96152F72B35FD5A00A17044 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

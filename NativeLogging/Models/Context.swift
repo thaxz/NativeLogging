@@ -7,11 +7,14 @@
 
 import Foundation
 
-// To know the file, the line and the context of the log
+/// Struct representing context information (file, function, line) for a log message.
 struct LogContext {
+    
     let file: String
     let function: String
     let line: Int
+    
+    /// A formatted string containing file, line, and function information.
     var description: String {
         return "\((file as NSString).lastPathComponent):\(line) \(function)"
     }
