@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 20){
             Button("Add info entry") {
                 Logger.info("This is an info entry")
             }

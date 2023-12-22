@@ -11,8 +11,7 @@ import os.log
 /// A class for logging messages with different log levels.
 class Logger {
     
-    //TODO: figure out what is and change category
-    private static let log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "YourAppLogCategory")
+    private static let log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "Network")
     
     /// Logs an informational message.
     /// - Parameters:
@@ -34,6 +33,7 @@ class Logger {
     }
     
     fileprivate static func handleLog(level: LogLevel, message: String, shouldLogContext: Bool, file: String, function: String, line: Int) {
+        
         let context = LogContext(file: file, function: function, line: line)
         let logComponents = ["[\(level.prefix)]", message]
         
@@ -43,10 +43,27 @@ class Logger {
         }
         
         os_log("%{public}@", log: log, type: level.logType, fullString)
+        saveLogToFile(message: fullString)
         
         // Debug prints
         print("Logged: \(fullString)")
         
+    }
+    
+    /// Saves a log message to a local file.
+    ///
+    /// - Parameter message: The log message to be saved.
+    private static func saveLogToFile(message: String) {
+        
+        let fileName = "app_logs.txt"
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let logFileURL = documentDirectory.appendingPathComponent(fileName)
+        
+        do {
+            try "\(message)\n".appendToURL(fileURL: logFileURL)
+        } catch {
+            print("Error saving log to file: \(error)")
+        }
     }
     
 }
