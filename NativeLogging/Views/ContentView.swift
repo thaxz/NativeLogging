@@ -15,6 +15,11 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
         }
+        .onAppear{
+                    Log.info("This is an info entry")
+                    Log.warning("This is a warning")
+                    Log.error("This is an error")
+                }
         .padding()
     }
 }
