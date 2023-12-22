@@ -43,6 +43,10 @@ class Logger {
         }
         
         os_log("%{public}@", log: log, type: level.logType, fullString)
+        
+        // Debug prints
+        print("Logged: \(fullString)")
+        
     }
     
 }

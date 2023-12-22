@@ -10,16 +10,22 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button("Add info entry") {
+                Logger.info("This is an info entry")
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.blue)
+            Button("Add warning entry") {
+                Logger.info("This is a warning")
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.yellow)
+            Button("Add error entry") {
+                Logger.info("This is an error")
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.red)
         }
-        .onAppear{
-                    Logger.info("This is an info entry")
-                    Logger.warning("This is a warning")
-                    Logger.error("This is an error")
-                }
         .padding()
     }
 }
