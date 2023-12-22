@@ -16,12 +16,12 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
             .tint(.blue)
             Button("Add warning entry") {
-                Logger.info("This is a warning")
+                Logger.warning("This is a warning")
             }
             .buttonStyle(.borderedProminent)
             .tint(.yellow)
             Button("Add error entry") {
-                Logger.info("This is an error")
+                Logger.error("This is an error")
             }
             .buttonStyle(.borderedProminent)
             .tint(.red)

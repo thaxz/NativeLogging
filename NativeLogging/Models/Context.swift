@@ -16,6 +16,10 @@ struct LogContext {
     
     /// A formatted string containing file, line, and function information.
     var description: String {
-        return "\((file as NSString).lastPathComponent):\(line) \(function)"
-    }
+            return """
+            File: \((file as NSString).lastPathComponent)
+            Line: \(line)
+            Function: \(function)
+            """
+        }
 }

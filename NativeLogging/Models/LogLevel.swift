@@ -18,7 +18,7 @@ enum LogLevel {
     var prefix: String {
         switch self {
         case .info:
-            return "INFO"
+            return "🗒️ INFO"
         case .warning:
             return "⚠️ WARNING"
         case .error:

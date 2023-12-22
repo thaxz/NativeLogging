@@ -20,27 +20,24 @@ class Logger {
     ///   - file: The name of the file in which the log message originated.
     ///   - function: The name of the function in which the log message originated.
     ///   - line: The line number at which the log message originated.
-    static func info(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
-        handleLog(level: .info, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
+    static func info(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .info, message: message, file: file, function: function, line: line)
     }
     
-    static func warning(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
-        handleLog(level: .warning, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
+    static func warning(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .warning, message: message, file: file, function: function, line: line)
     }
     
-    static func error(_ message: String, shouldShowContext: Bool = true, file: String = #file, function: String = #function, line: Int = #line) {
-        handleLog(level: .error, message: message, shouldLogContext: shouldShowContext, file: file, function: function, line: line)
+    static func error(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+        handleLog(level: .error, message: message, file: file, function: function, line: line)
     }
     
-    fileprivate static func handleLog(level: LogLevel, message: String, shouldLogContext: Bool, file: String, function: String, line: Int) {
+    fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
         
         let context = LogContext(file: file, function: function, line: line)
-        let logComponents = ["[\(level.prefix)]", message]
+        let logComponents = ["[\(level.prefix)]", "\(context.description)", "Message: \(message)"]
         
-        var fullString = logComponents.joined(separator: " ")
-        if shouldLogContext {
-            fullString += " \(context.description)"
-        }
+        let fullString = logComponents.joined(separator: "\n")
         
         os_log("%{public}@", log: log, type: level.logType, fullString)
         saveLogToFile(message: fullString)
