@@ -55,11 +55,34 @@ class Logger {
         let fileName = "app_logs.txt"
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let logFileURL = documentDirectory.appendingPathComponent(fileName)
-        
+        performFileCleanupIfNeeded(fileURL: logFileURL)
         do {
             try "\(message)\n".appendToURL(fileURL: logFileURL)
         } catch {
             print("Error saving log to file: \(error)")
+        }
+    }
+    
+    /// Checks if a file cleanup is needed and performs it if necessary.
+    ///
+    /// - Parameter fileURL: The URL of the file to be checked and cleaned.
+    private static func performFileCleanupIfNeeded(fileURL: URL) {
+        let currentDate = Date()
+        // Check if more than 5 days have passed since the last cleanup
+        if let lastCleanDate = UserDefaults.standard.value(forKey: "lastCleanDate") as? Date,
+            currentDate.timeIntervalSince(lastCleanDate) > 5 * 24 * 60 * 60 {
+            clearLogFile(fileURL: fileURL)
+            // Update the last cleanup day
+            UserDefaults.standard.set(currentDate, forKey: "lastCleanDate")
+        }
+    }
+    
+    /// Clears the contents of the specified local log file.
+    private static func clearLogFile(fileURL: URL) {
+        do {
+            try "".write(to: fileURL, atomically: false, encoding: .utf8)
+        } catch {
+            print("Error clearing log file: \(error)")
         }
     }
     
