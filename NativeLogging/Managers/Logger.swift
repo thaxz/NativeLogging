@@ -16,7 +16,6 @@ class Logger {
     /// Logs an informational message.
     /// - Parameters:
     ///   - message: The message to be logged.
-    ///   - shouldShowContext: Indicates whether context information (file, function, line) should be included in the log.
     ///   - file: The name of the file in which the log message originated.
     ///   - function: The name of the function in which the log message originated.
     ///   - line: The line number at which the log message originated.
@@ -33,7 +32,6 @@ class Logger {
     }
     
     fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
-        
         let context = LogContext(file: file, function: function, line: line)
         let logComponents = ["[\(level.prefix)]", "\(context.description)", "Message: \(message)"]
         
@@ -44,9 +42,9 @@ class Logger {
         
         // Debug prints
         print("Logged: \(fullString)")
-        
     }
     
+    /// Creates the file if it does not exist.
     private static func createFileIfNeeded(at fileURL: URL) {
         guard !FileManager.default.fileExists(atPath: fileURL.path) else { return }
         do {
