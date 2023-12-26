@@ -22,6 +22,9 @@ struct ContentView: View {
             .tint(.yellow)
             Button("Add error entry") {
                 Logger.error("This is an error entry with some JSON response")
+                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    print("Document Directory: \(documentDirectory.path)")
+                }
             }
             .buttonStyle(.borderedProminent)
             .tint(.red)
@@ -31,7 +34,6 @@ struct ContentView: View {
             }
             .buttonStyle(.borderedProminent)
         }
-        .padding()
     }
 }
 

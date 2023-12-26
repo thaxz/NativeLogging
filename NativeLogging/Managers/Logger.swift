@@ -51,15 +51,20 @@ class Logger {
     ///
     /// - Parameter message: The log message to be saved.
     private static func saveLogToFile(message: String) {
-        
         let fileName = "app_logs.txt"
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let logFileURL = documentDirectory.appendingPathComponent(fileName)
         performFileCleanupIfNeeded(fileURL: logFileURL)
         do {
-            try "\(message)\n".appendToURL(fileURL: logFileURL)
+            // Read the current content of the file
+            var currentContent = try String(contentsOf: logFileURL, encoding: .utf8)
+            // Append the new log
+            currentContent.append("\(message)\n")
+            // Write the updated content back to the file
+            try currentContent.write(to: logFileURL, atomically: false, encoding: .utf8)
+            print("Log added successfully.")
         } catch {
-            print("Error saving log to file: \(error)")
+            print("Error adding log: \(error)")
         }
     }
     
@@ -70,10 +75,11 @@ class Logger {
         let currentDate = Date()
         // Check if more than 5 days have passed since the last cleanup
         if let lastCleanDate = UserDefaults.standard.value(forKey: "lastCleanDate") as? Date,
-            currentDate.timeIntervalSince(lastCleanDate) > 5 * 24 * 60 * 60 {
+           currentDate.timeIntervalSince(lastCleanDate) > 5 * 24 * 60 * 60 {
             clearLogFile(fileURL: fileURL)
             // Update the last cleanup day
             UserDefaults.standard.set(currentDate, forKey: "lastCleanDate")
+            print("Last clean date updated to \(currentDate)")
         }
     }
     
