@@ -47,6 +47,16 @@ class Logger {
         
     }
     
+    private static func createFileIfNeeded(at fileURL: URL) {
+        guard !FileManager.default.fileExists(atPath: fileURL.path) else { return }
+        do {
+            try "".write(to: fileURL, atomically: false, encoding: .utf8)
+            print("Log file created successfully.")
+        } catch {
+            print("Error creating log file: \(error)")
+        }
+    }
+    
     /// Saves a log message to a local file.
     ///
     /// - Parameter message: The log message to be saved.
@@ -54,6 +64,7 @@ class Logger {
         let fileName = "app_logs.txt"
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let logFileURL = documentDirectory.appendingPathComponent(fileName)
+        createFileIfNeeded(at: logFileURL)
         performFileCleanupIfNeeded(fileURL: logFileURL)
         do {
             // Read the current content of the file
