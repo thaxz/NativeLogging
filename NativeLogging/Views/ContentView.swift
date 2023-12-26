@@ -22,15 +22,15 @@ struct ContentView: View {
             .tint(.yellow)
             Button("Add error entry") {
                 Logger.error("This is an error entry with some JSON response")
-                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    print("Document Directory: \(documentDirectory.path)")
-                }
             }
             .buttonStyle(.borderedProminent)
             .tint(.red)
             Spacer()
-            Button("SEND LOG") {
-                // Calls ViewModel upload function
+            // debug: getting file's path to verify if every log is being saved
+            Button("GET PATH") {
+                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    print("Document Directory: \(documentDirectory.path)")
+                }
             }
             .buttonStyle(.borderedProminent)
         }
