@@ -83,11 +83,11 @@ class Logger {
     private static func performFileCleanupIfNeeded(fileURL: URL) {
         let currentDate = Date()
         // Check if more than 5 days have passed since the last cleanup
-        if let lastCleanDate = UserDefaults.standard.value(forKey: "lastCleanDate") as? Date,
+        if let lastCleanDate = UserDefaults.standard.value(forKey: Constants.shared.lastCleanDateKey) as? Date,
            currentDate.timeIntervalSince(lastCleanDate) > Constants.shared.fiveDaysInSeconds {
             clearLogFile(fileURL: fileURL)
             // Update the last cleanup day
-            UserDefaults.standard.set(currentDate, forKey: "lastCleanDate")
+            UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
             print("Last clean date updated to \(currentDate)")
         }
     }

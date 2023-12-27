@@ -16,4 +16,5 @@ class Constants {
         return 5 * 24 * 60 * 60
     }
     
+    let lastCleanDateKey = "lastCleanDate"
 }
