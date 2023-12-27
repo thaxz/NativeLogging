@@ -15,6 +15,7 @@
 		E96152F92B35FD7A00A17044 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152F82B35FD7A00A17044 /* Context.swift */; };
 		E96152FB2B35FD9500A17044 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152FA2B35FD9500A17044 /* LogLevel.swift */; };
 		E96152FF2B36042300A17044 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96152FE2B36042300A17044 /* String.swift */; };
+		E9C01CA52B3CC96E0066CAD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C01CA42B3CC96E0066CAD9 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		E96152F82B35FD7A00A17044 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		E96152FA2B35FD9500A17044 /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		E96152FE2B36042300A17044 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		E9C01CA42B3CC96E0066CAD9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				E96152FC2B36040800A17044 /* Extensions */,
+				E9C01CA42B3CC96E0066CAD9 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				E96152E82B35FB7B00A17044 /* ContentView.swift in Sources */,
 				E96152F92B35FD7A00A17044 /* Context.swift in Sources */,
 				E96152E62B35FB7B00A17044 /* NativeLoggingApp.swift in Sources */,
+				E9C01CA52B3CC96E0066CAD9 /* Constants.swift in Sources */,
 				E96152FB2B35FD9500A17044 /* LogLevel.swift in Sources */,
 				E96152F72B35FD5A00A17044 /* Logger.swift in Sources */,
 			);
