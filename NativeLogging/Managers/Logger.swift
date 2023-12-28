@@ -32,21 +32,27 @@ class Logger {
     }
     
     fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
+        // Creates a LogContext with the function parameters
         let context = LogContext(file: file, function: function, line: line)
+        // Assemble the log components
         let logComponents = ["[\(level.prefix)]", "\(context.description)", "Message: \(message)"]
         let fullString = logComponents.joined(separator: "\n")
-        
+        // Log the full string using the OSLog system
         os_log("%{public}@", log: log, type: level.logType, fullString)
+        // Saves the log to a local file
         saveLogToFile(message: fullString)
         print("Logged: \(fullString)")
     }
     
     /// Creates the file if it does not exist.
     private static func createFileIfNeeded(at fileURL: URL) {
+        // Check if the file already exists
         guard !FileManager.default.fileExists(atPath: fileURL.path) else { return }
         do {
+            // Creates the file by writing an empty string
             try "".write(to: fileURL, atomically: false, encoding: .utf8)
             print("Log file created successfully.")
+            // Set the initial last clean date
             let currentDate = Date()
             UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
             print("Initial last clean date set to \(currentDate)")
@@ -59,10 +65,14 @@ class Logger {
     ///
     /// - Parameter message: The log message to be saved.
     private static func saveLogToFile(message: String) {
+        // Specify the file name
         let fileName = "app_logs.txt"
+        // Get the URL for the file
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let logFileURL = documentDirectory.appendingPathComponent(fileName)
+        // Create if it does not exist
         createFileIfNeeded(at: logFileURL)
+        // Cleans the file if enough time has been passed
         performFileCleanupIfNeeded(fileURL: logFileURL)
         do {
             // Read the current content of the file
@@ -81,14 +91,15 @@ class Logger {
     ///
     /// - Parameter fileURL: The URL of the file to be checked and cleaned.
     private static func performFileCleanupIfNeeded(fileURL: URL) {
+        // Get the current date and retrieve the last clean date
         let currentDate = Date()
         guard let lastCleanDate = UserDefaults.standard.value(forKey: Constants.shared.lastCleanDateKey) as? Date else { return }
+        // Calculate the time interval since the last cleanup
         let timeIntervalSinceLastClean = currentDate.timeIntervalSince(lastCleanDate)
-        
-        // Verifica se passaram mais de 5 dias desde a última limpeza
+        // Check if more than 5 days have passed
         if timeIntervalSinceLastClean > Constants.shared.fiveDaysInSeconds {
             clearLogFile(fileURL: fileURL)
-            // Atualiza a data da última limpeza
+            // Update the last clean date
             UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
             print("Last clean date updated to \(currentDate)")
         } else {
@@ -99,6 +110,7 @@ class Logger {
     /// Clears the contents of the specified local log file.
     private static func clearLogFile(fileURL: URL) {
         do {
+            // Cleaning the Log file by writing an empty string
             try "".write(to: fileURL, atomically: false, encoding: .utf8)
         } catch {
             print("Error clearing log file: \(error)")
