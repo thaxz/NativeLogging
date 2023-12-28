@@ -34,13 +34,10 @@ class Logger {
     fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
         let context = LogContext(file: file, function: function, line: line)
         let logComponents = ["[\(level.prefix)]", "\(context.description)", "Message: \(message)"]
-        
         let fullString = logComponents.joined(separator: "\n")
         
         os_log("%{public}@", log: log, type: level.logType, fullString)
         saveLogToFile(message: fullString)
-        
-        // Debug prints
         print("Logged: \(fullString)")
     }
     
@@ -50,6 +47,9 @@ class Logger {
         do {
             try "".write(to: fileURL, atomically: false, encoding: .utf8)
             print("Log file created successfully.")
+            let currentDate = Date()
+            UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
+            print("Initial last clean date set to \(currentDate)")
         } catch {
             print("Error creating log file: \(error)")
         }
@@ -82,13 +82,17 @@ class Logger {
     /// - Parameter fileURL: The URL of the file to be checked and cleaned.
     private static func performFileCleanupIfNeeded(fileURL: URL) {
         let currentDate = Date()
-        // Check if more than 5 days have passed since the last cleanup
-        if let lastCleanDate = UserDefaults.standard.value(forKey: Constants.shared.lastCleanDateKey) as? Date,
-           currentDate.timeIntervalSince(lastCleanDate) > Constants.shared.fiveDaysInSeconds {
+        guard let lastCleanDate = UserDefaults.standard.value(forKey: Constants.shared.lastCleanDateKey) as? Date else { return }
+        let timeIntervalSinceLastClean = currentDate.timeIntervalSince(lastCleanDate)
+        
+        // Verifica se passaram mais de 5 dias desde a última limpeza
+        if timeIntervalSinceLastClean > Constants.shared.fiveDaysInSeconds {
             clearLogFile(fileURL: fileURL)
-            // Update the last cleanup day
+            // Atualiza a data da última limpeza
             UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
             print("Last clean date updated to \(currentDate)")
+        } else {
+            print("Not enough time has passed since the last cleanup")
         }
     }
     
