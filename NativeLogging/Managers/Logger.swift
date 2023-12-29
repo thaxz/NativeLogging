@@ -66,11 +66,9 @@ class Logger {
     ///
     /// - Parameter message: The log message to be saved.
     private static func saveLogToFile(message: String) {
-        // Specify the file name
-        let fileName = "app_logs.txt"
         // Get the URL for the file
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let logFileURL = documentDirectory.appendingPathComponent(fileName)
+        let logFileURL = documentDirectory.appendingPathComponent(Constants.shared.fileName)
         // Create if it does not exist
         createFileIfNeeded(at: logFileURL)
         // Cleans the file if enough time has been passed
@@ -98,7 +96,7 @@ class Logger {
         // Calculate the time interval since the last cleanup
         let timeIntervalSinceLastClean = currentDate.timeIntervalSince(lastCleanDate)
         // Check if more than 5 days have passed
-        if timeIntervalSinceLastClean > Constants.shared.fiveDaysInSeconds {
+        if timeIntervalSinceLastClean > Constants.shared.cleanTimeInSeconds {
             clearLogFile(fileURL: fileURL)
             // Update the last clean date
             UserDefaults.standard.set(currentDate, forKey: Constants.shared.lastCleanDateKey)
@@ -110,9 +108,10 @@ class Logger {
     
     /// Clears the contents of the specified local log file.
     private static func clearLogFile(fileURL: URL) {
+        let emptyString = ""
         do {
             // Cleaning the Log file by writing an empty string
-            try "".write(to: fileURL, atomically: false, encoding: .utf8)
+            try emptyString.write(to: fileURL, atomically: false, encoding: .utf8)
         } catch {
             print("Error clearing log file: \(error)")
         }
