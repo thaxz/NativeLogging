@@ -32,8 +32,9 @@ class Logger {
     }
     
     fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
+        let entryDate = Date()
         // Creates a LogContext with the function parameters
-        let context = LogContext(file: file, function: function, line: line)
+        let context = LogContext(file: file, function: function, line: line, date: entryDate)
         // Assemble the log components
         let logComponents = ["[\(level.prefix)]", "\(context.description)", "Message: \(message)"]
         let fullString = logComponents.joined(separator: "\n")
