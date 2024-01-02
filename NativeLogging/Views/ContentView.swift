@@ -30,7 +30,6 @@ struct ContentView: View {
             .tint(.red)
             Spacer()
             Button("Send Logs") {
-                print("apertei o botão")
                 viewModel.sendLogs()
             }
             .buttonStyle(.borderedProminent)

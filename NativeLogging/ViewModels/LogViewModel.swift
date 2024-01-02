@@ -10,22 +10,20 @@ import Alamofire
 
 class LogViewModel: ObservableObject {
     
-    // debug: getting file's path to verify if every log is being saved
+    /// Getting file's path to verify if every log is being saved
     func getPath(){
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             print("Document Directory: \(documentDirectory.path)")
         }
     }
     
+    /// Sends logs to the server
     func sendLogs() {
-        // Handle the case where documentDirectory is nil
+        // Getting file url inside document directory
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Document directory is nil")
             return }
-        
         let logFileURL = documentDirectory.appendingPathComponent(Constants.shared.fileName)
-        
-        // Handle the case if the log file doesn't exist
         guard FileManager.default.fileExists(atPath: logFileURL.path) else {
             print("The file path is nil")
             return }
@@ -39,6 +37,7 @@ class LogViewModel: ObservableObject {
          */
         
         let url = URL(string: "server_upload_url")!  // Replace with upload URL
+        // Uploading file
         AF.upload(
             multipartFormData: { multipartFormData in
                 /// Uncomment to add the user token to the logs
