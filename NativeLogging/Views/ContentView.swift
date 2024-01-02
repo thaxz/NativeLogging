@@ -29,8 +29,8 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
             .tint(.red)
             Spacer()
-            // debug: getting file's path to verify if every log is being saved
             Button("Send Logs") {
+                print("apertei o botão")
                 viewModel.sendLogs()
             }
             .buttonStyle(.borderedProminent)
