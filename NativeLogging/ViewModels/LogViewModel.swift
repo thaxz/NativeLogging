@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class LogViewModel: ObservableObject {
     
@@ -26,7 +27,20 @@ class LogViewModel: ObservableObject {
         
         guard let token = UserDefaults.standard.string(forKey: Constants.shared.token) else {return}
         let url = URL(string: "server_upload_url")!  // Replace with upload URL
-        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(token.data(using: .utf8)!, withName: "token")
+                multipartFormData.append(logFileURL, withName: "uploadedFile", fileName: Constants.shared.fileName, mimeType: "text/plain")
+            },
+            to: url,
+            method: .post)
+        .response { response in
+            switch response.result {
+            case .success:
+                print("Log upload successful.")
+            case .failure(let error):
+                print("Log upload failed with error: \(error)")
+            }
+        }
     }
-    
 }

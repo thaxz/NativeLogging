@@ -30,8 +30,8 @@ struct ContentView: View {
             .tint(.red)
             Spacer()
             // debug: getting file's path to verify if every log is being saved
-            Button("GET PATH") {
-                viewModel.getPath()
+            Button("Send Logs") {
+                viewModel.sendLogs()
             }
             .buttonStyle(.borderedProminent)
         }
