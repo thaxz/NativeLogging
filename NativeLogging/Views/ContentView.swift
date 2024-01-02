@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var viewModel: LogViewModel = LogViewModel()
+    
     var body: some View {
         VStack(spacing: 20){
             Button("Add info entry") {
@@ -28,9 +31,7 @@ struct ContentView: View {
             Spacer()
             // debug: getting file's path to verify if every log is being saved
             Button("GET PATH") {
-                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    print("Document Directory: \(documentDirectory.path)")
-                }
+                viewModel.getPath()
             }
             .buttonStyle(.borderedProminent)
         }
