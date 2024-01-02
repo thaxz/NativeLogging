@@ -21,4 +21,6 @@ class Constants {
     let fileName = "app_logs.txt"
     /// Key to access file's last clean date
     let lastCleanDateKey = "lastCleanDate"
+    /// User session token
+    let token = "UserDefaults.Token"
 }
