@@ -19,19 +19,19 @@ class Logger {
     ///   - file: The name of the file in which the log message originated.
     ///   - function: The name of the function in which the log message originated.
     ///   - line: The line number at which the log message originated.
-    static func info(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+    static func info(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
         handleLog(level: .info, message: message, file: file, function: function, line: line)
     }
     
-    static func warning(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+    static func warning(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
         handleLog(level: .warning, message: message, file: file, function: function, line: line)
     }
     
-    static func error(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+    static func error(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
         handleLog(level: .error, message: message, file: file, function: function, line: line)
     }
     
-    fileprivate static func handleLog(level: LogLevel, message: String, file: String, function: String, line: Int) {
+    fileprivate static func handleLog(level: LogLevel, message: Any, file: String, function: String, line: Int) {
         let entryDate = Date()
         // Creates a LogContext with the function parameters
         let context = LogContext(file: file, function: function, line: line, date: entryDate)

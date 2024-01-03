@@ -37,6 +37,7 @@ class LogViewModel: ObservableObject {
          */
         
         let url = URL(string: "server_upload_url")!  // Replace with upload URL
+        let mockUrl = URL(string: "https://postb.in/b/1704225012265-7183685568161")!
         // Uploading file
         AF.upload(
             multipartFormData: { multipartFormData in
@@ -44,7 +45,7 @@ class LogViewModel: ObservableObject {
                 //multipartFormData.append(token.data(using: .utf8)!, withName: "token")
                 multipartFormData.append(logFileURL, withName: "uploadedFile", fileName: Constants.shared.fileName, mimeType: "text/plain")
             },
-            to: url,
+            to: mockUrl,
             method: .post)
         .response { response in
             switch response.result {
